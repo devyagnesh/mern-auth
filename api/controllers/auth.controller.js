@@ -1,6 +1,7 @@
+import { ErrorHandler } from "../Utils/Error.js";
 import User from "../models/User.model.js";
 
-export const signup = async (req, res) => {
+export const signup = async (req, res,next) => {
   const { username, email, password } = req.body;
 
   const newUser = new User({
@@ -15,6 +16,6 @@ export const signup = async (req, res) => {
       message: "user created succesfully",
     });
   } catch (error) {
-    return res.status(500).json(error.message)
+    return next(ErrorHandler(300, error.message));
   }
 };
